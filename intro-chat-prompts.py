@@ -24,10 +24,11 @@ customer_review = """
   I don't want this!  Actually no one should want this.
   Seriously! Give me my money back now!
 """
-
-prompt = """
- Rewrite the customer review message in a polite tone, and then
- please translate the new review message into French. 
+tone = """Proper English in a nice, warm, respectful tone"""
+language = "German"
+prompt = f"""
+ Rewrite the {customer_review} message in a {tone}, and then
+ please translate the new review message into {language}. 
 """
 rewrite =get_completion(prompt=prompt)
 print(rewrite)
