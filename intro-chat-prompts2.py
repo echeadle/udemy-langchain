@@ -1,12 +1,12 @@
 import os
-from openai import OpenAI
+import openai
 from dotenv import find_dotenv, load_dotenv
 from langchain_openai import OpenAI
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage
 
 load_dotenv(find_dotenv())
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 llm_model = "gpt-3.5-turbo"
 chat_model = ChatOpenAI(temperature=0.7, model=llm_model)
@@ -14,10 +14,12 @@ chat_model = ChatOpenAI(temperature=0.7, model=llm_model)
 # OpenAI Completion Endpoint
 def get_completion(prompt, model=llm_model):
     messages = [{"role": "user", "content": prompt}]
-    response = client.chat.completions.create(model=model,
-    messages=messages,
-    temperature=0)
-    return response.choices[0].message.content
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        temperature=0,
+    )
+    return response.choices[0].message["content"]
 
 # Translate text, review
 customer_review = """
