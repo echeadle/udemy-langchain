@@ -24,8 +24,8 @@ customer_review = """
   I don't want this!  Actually no one should want this.
   Seriously! Give me my money back now!
 """
-tone = """Proper English in a nice, warm, respectful tone"""
-language = "German"
+tone = """Proper British English in a nice, warm, respectful tone"""
+language = "French"
 prompt = f"""
  Rewrite the {customer_review} message in a {tone}, and then
  please translate the new review message into {language}. 
