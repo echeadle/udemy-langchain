@@ -2,6 +2,7 @@ import os
 from openai import OpenAI
 from dotenv import find_dotenv, load_dotenv
 from langchain_openai import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
 
 load_dotenv(find_dotenv())
 
@@ -31,5 +32,22 @@ prompt = f"""
  please translate the new review message into {language}. 
 """
 rewrite =get_completion(prompt=prompt)
-print(rewrite)
+# print(rewrite)
 # This is done with OpenAI not langchain. 
+# ===== Using LangChain & prompt templates - Still ChatAPI ====
+
+chat_model = ChatOpenAI(temperature=0.7, model=llm_model)
+
+template_string = f"""
+  Translate the following text {customer_review} into italiano in a
+  polite tone.
+"""
+
+prompt_template = ChatPromptTemplate.from_template(template_string)
+
+translation_message = prompt_template.format_messages(
+    customer_review = customer_review
+)
+
+response = chat_model.invoke(translation_message)
+print(response.content)
